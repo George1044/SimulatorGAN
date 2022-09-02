@@ -11,24 +11,27 @@ using System.Text.RegularExpressions;
 public class ConvertMatrixToMap : MonoBehaviour
 {
 
-    public Tile[] grass, road, obstacle;
+    public Tile[] floor;
     public bool randomMap;
-    public GameObject goal, player;
+    public GameObject goal, agent, highObstacle, lowObstacle;
+    private List<GameObject> agents = new List<GameObject>(), goals = new List<GameObject>();
     public int mapNumber;
-    int i = 0, j = 0;
+    int i = 0, j = 0, a = 0, g = 0;
     int[,] matrix;
     Tile currentTile;
     Tilemap tilemap;
     StringBuilder sb;
     String stringName;
+    public GameObject pathfinder;
 
     // Start is called before the first frame update
     void Start()
     {
+        string pwd = System.IO.Directory.GetCurrentDirectory();
         if (randomMap)
-            stringName = "randomMap" + mapNumber + ".txt";
+            stringName = pwd + "/Maps/randomMap" + mapNumber + ".txt";
         else
-            stringName = "map" + mapNumber + ".txt";
+            stringName = pwd + "/Maps/map" + mapNumber + ".txt";
         StreamReader reader1 = new StreamReader(stringName);
         StreamReader reader = new StreamReader(stringName);
         int width = reader1.ReadLine().Split(' ').Length - 1;
@@ -36,6 +39,7 @@ public class ConvertMatrixToMap : MonoBehaviour
         textFile = Regex.Replace(textFile, "\n|\r", "");
         String[] numbers = (textFile.Split(' '));
         int height = numbers.Length / (width);
+
 
         matrix = new int[height, width];
         int row = -1, column = -1;
@@ -51,27 +55,30 @@ public class ConvertMatrixToMap : MonoBehaviour
         {
             for (int x = (int)-width / 2; x < (int)width / 2; x++)
             {
+
+                currentTile = floor[0];
                 if (matrix[i, j] == 0)
                 {
-                    currentTile = grass[0];
+                    currentTile = floor[UnityEngine.Random.Range(0, (floor.Length))];
                 }
                 else if (matrix[i, j] == 1)
                 {
-                    currentTile = road[80];
+                    Instantiate(highObstacle, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
+                }
+                else if (matrix[i, j] == 4)
+                {
+                    Instantiate(lowObstacle, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
                 }
                 else if (matrix[i, j] == 2)
                 {
-                    currentTile = obstacle[0];
+                    agents.Add(Instantiate(agent, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity));
+                    a++;
                 }
-                else if (matrix[i, j] == 5)
+                else if (matrix[i, j] == 3)
                 {
-                    Instantiate(player, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
-                    currentTile = road[80];
-                }
-                else if (matrix[i, j] == 6)
-                {
-                    Instantiate(goal, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity);
-                    currentTile = road[4];
+                    goals.Add(Instantiate(goal, new Vector3(x + 0.5f, y + 0.5f, 0), Quaternion.identity));
+                    currentTile = floor[14];
+                    g++;
                 }
 
                 tilemap.SetTile(new Vector3Int(x, y, 0), currentTile);
@@ -80,12 +87,19 @@ public class ConvertMatrixToMap : MonoBehaviour
             j = 0;
             i++;
         }
+        g = 0;
+        foreach (GameObject agent in agents)
+        {
+            agent.GetComponent<Pathfinding.AIDestinationSetter>().target = goals.FirstOrDefault().GetComponent<Transform>();
+            goals.RemoveAt(0);
+            g++;
+        }
         if (randomMap)
         {
             int randomX = UnityEngine.Random.Range((int)-width / 2, (int)width / 2);
             int randomY = UnityEngine.Random.Range((int)-height / 2, (int)height / 2);
-            Instantiate(player, new Vector3(randomX + 0.5f, randomY + 0.5f, 0), Quaternion.identity);
-            currentTile = road[80];
+            agent = Instantiate(agent, new Vector3(randomX + 0.5f, randomY + 0.5f, 0), Quaternion.identity);
+            currentTile = floor[0];
             tilemap.SetTile(new Vector3Int(randomX, randomY, 0), currentTile);
 
             int randomX2 = UnityEngine.Random.Range((int)-width / 2, (int)width / 2);
@@ -95,12 +109,21 @@ public class ConvertMatrixToMap : MonoBehaviour
                 randomX2 = UnityEngine.Random.Range((int)-width / 2, (int)width / 2);
                 randomY2 = UnityEngine.Random.Range((int)-height / 2, (int)height / 2);
             }
-            Instantiate(goal, new Vector3(randomX + 0.5f, randomY + 0.5f, 0), Quaternion.identity);
-            currentTile = road[4];
+
+            goal = Instantiate(goal, new Vector3(randomX + 0.5f, randomY + 0.5f, 0), Quaternion.identity);
+            agent.GetComponent<Pathfinding.AIDestinationSetter>().target = goal.GetComponent<Transform>();
+            currentTile = floor[14];
             tilemap.SetTile(new Vector3Int(randomX2, randomY2, 0), currentTile);
         }
+
+        Invoke("Scan", 1.0f);
+
     }
 
+    void Scan()
+    {
+        pathfinder.GetComponent<AstarPath>().Scan();
+    }
     // Update is called once per frame
     void Update()
     {

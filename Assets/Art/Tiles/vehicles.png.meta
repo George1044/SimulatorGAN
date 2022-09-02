@@ -78,6 +78,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -556,6 +557,25 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      vehicles_8: -8185488182896130113
+      vehicles_5: -6451892698064613440
+      vehicles_17: -2392788692224734899
+      vehicles_10: 1086166006093271176
+      vehicles_16: -2768930404608471331
+      vehicles_13: -1935978818150836452
+      vehicles_11: -4300370434805678183
+      vehicles_0: -2911444084064961278
+      vehicles_1: -3844397975568885630
+      vehicles_14: 2534308867944669669
+      vehicles_4: -442815641584643541
+      vehicles_3: -1504200904172684481
+      vehicles_7: -2385002377884286368
+      vehicles_9: 5374690662176434233
+      vehicles_6: -2638802188228536426
+      vehicles_2: -2424780825920242177
+      vehicles_12: -7669037788250105148
+      vehicles_15: -5539179707988457106
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
