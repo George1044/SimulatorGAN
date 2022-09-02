@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Goal
   - Start
+  - Agent
+  - Flying Agent
+  - Low Obstacle
+  - High Obstacle
   layers:
   - Default
   - TransparentFX
@@ -15,10 +19,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Agent
+  - Flying Agent
+  - Low Obstacle
+  - High Obstacle
   - 
   - 
   - 
