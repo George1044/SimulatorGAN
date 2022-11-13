@@ -74,7 +74,7 @@
       "dependencies": {}
     },
     "com.unity.2d.tilemap.extras": {
-      "version": "file:D:\\LAU\\Simulation Environments GANs\\Unity Project\\2d-extras-master",
+      "version": "file:C:\\LAU\\Simulation Environments GANs\\Unity Project\\2d-extras-master",
       "depth": 0,
       "source": "local",
       "dependencies": {
@@ -201,7 +201,7 @@
       }
     },
     "me.ameye.prefab-painter": {
-      "version": "file:D:/LAU/Simulation Environments GANs/Unity Project/prefab-painter-master",
+      "version": "file:C:/LAU/Simulation Environments GANs/Unity Project/prefab-painter-master",
       "depth": 0,
       "source": "local",
       "dependencies": {}

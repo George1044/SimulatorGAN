@@ -18,6 +18,7 @@ public class ConvertMapToMatrix : MonoBehaviour
     StringBuilder sb;
     GameObject[] goals, agents, lowObstacles, highObstacles;
     public GameObject pathfinder;
+    //public GameObject pathfinder, player;
 
 
 
@@ -92,13 +93,16 @@ public class ConvertMapToMatrix : MonoBehaviour
             writer.Write(sb.ToString());
             writer.Close();
         }
-        Invoke("Scan", 1.0f);
+        Invoke("Scan", 0.2f);
 
     }
 
     void Scan()
     {
         pathfinder.GetComponent<AstarPath>().Scan();
+        foreach (GameObject agent in agents) agent.GetComponent<Pathfinding.AIBase>().SearchPath();
+
+        //player.GetComponent<Pathfinding.AIBase>().canMove = true;
     }
 
     // Update is called once per frame

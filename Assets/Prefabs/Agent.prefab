@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 7721738092675036642}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.5348, y: -4.1981, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -151,7 +151,7 @@ MonoBehaviour:
     mode: 2
     interval: 0.5
     sensitivity: 20
-    maximumInterval: 10
+    maximumInterval: 60
     visualizeSensitivity: 1
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
@@ -221,7 +221,7 @@ MonoBehaviour:
     mode: 2
     interval: 0.5
     sensitivity: 10
-    maximumInterval: 2
+    maximumInterval: 60
     visualizeSensitivity: 0
   canMove: 1
   speed: 5
