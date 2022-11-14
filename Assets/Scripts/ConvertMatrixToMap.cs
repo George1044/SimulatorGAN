@@ -32,6 +32,7 @@ public class ConvertMatrixToMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Time.timeScale = Time.timeScale * 100;
         if (!randomMap)
         {
             string pwd = System.IO.Directory.GetCurrentDirectory();
