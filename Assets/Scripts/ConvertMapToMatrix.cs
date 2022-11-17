@@ -25,6 +25,7 @@ public class ConvertMapToMatrix : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Time.timeScale = Time.timeScale * 100;
         tilemap = GetComponent<Tilemap>();
         horizontal = (int)tilemap.localBounds.max.x;
         vertical = (int)tilemap.localBounds.max.y;
@@ -98,6 +99,7 @@ public class ConvertMapToMatrix : MonoBehaviour
     void Scan()
     {
         pathfinder.GetComponent<AstarPath>().Scan();
+        //foreach (GameObject agent in agents) agent.GetComponent<AgentController>().StartPath();
         foreach (GameObject agent in agents) agent.GetComponent<Pathfinding.AIBase>().SearchPath();
 
         //player.GetComponent<Pathfinding.AIBase>().canMove = true;

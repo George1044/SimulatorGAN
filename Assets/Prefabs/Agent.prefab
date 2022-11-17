@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1196956565}
   - component: {fileID: 1196956566}
   - component: {fileID: 548847849}
+  - component: {fileID: 249425309018719431}
   m_Layer: 8
   m_Name: Agent
   m_TagString: Agent
@@ -221,7 +222,7 @@ MonoBehaviour:
     mode: 2
     interval: 0.5
     sensitivity: 10
-    maximumInterval: 60
+    maximumInterval: 1
     visualizeSensitivity: 0
   canMove: 1
   speed: 5
@@ -255,3 +256,29 @@ MonoBehaviour:
   bezierTangentLength: 0.2
   offset: 0.2
   factor: 0.1
+--- !u!61 &249425309018719431
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7721738092675036642}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1.3913044}
+    newSize: {x: 0.2, y: 0.26}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.3913044}
+  m_EdgeRadius: 0
