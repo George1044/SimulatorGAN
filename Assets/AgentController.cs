@@ -17,6 +17,8 @@ public class AgentController : MonoBehaviour
     Path path;
     int currentWaypoint = 0;
     bool reachedEndofPath = false;
+    [System.NonSerialized]
+    public int collisionCount = 0;
 
     Seeker seeker;
     Rigidbody2D rb;
@@ -44,6 +46,13 @@ public class AgentController : MonoBehaviour
             reachedEndofPath = false;
         }
 
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("High Obstacle") || collision.gameObject.CompareTag("Low Obstacle"))
+        {
+            collisionCount++;
+        }
     }
 
     // Update is called once per frame

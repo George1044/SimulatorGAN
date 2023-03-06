@@ -5,23 +5,27 @@ using UnityEngine;
 public class GoalReached : MonoBehaviour
 {
     // Start is called before the first frame update
-    float x;
+    float timer; //timer to calculate simulation time
+    bool reached;
     void Start()
     {
-
-
+        timer = 0;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Agent"))
         {
-            Debug.Log("Goal Reached");
+            reached = true;
+            int collisionCount = other.gameObject.GetComponent<AgentController>().collisionCount;
+            Debug.Log($"Goal Reached; simulation time: {timer}; collision count: {collisionCount}");
+            other.gameObject.GetComponent<Rigidbody2D>().Sleep();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!reached) timer += Time.deltaTime;
     }
 }
