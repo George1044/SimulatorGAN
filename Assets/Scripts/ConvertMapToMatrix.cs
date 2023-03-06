@@ -100,7 +100,7 @@ public class ConvertMapToMatrix : MonoBehaviour
     {
         pathfinder.GetComponent<AstarPath>().Scan();
         //foreach (GameObject agent in agents) agent.GetComponent<AgentController>().StartPath();
-        foreach (GameObject agent in agents) agent.GetComponent<Pathfinding.AIBase>().SearchPath();
+        //foreach (GameObject agent in agents) agent.GetComponent<Pathfinding.AIBase>().SearchPath();
 
         //player.GetComponent<Pathfinding.AIBase>().canMove = true;
     }
