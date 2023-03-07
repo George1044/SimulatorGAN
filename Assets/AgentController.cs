@@ -10,7 +10,7 @@ public class AgentController : MonoBehaviour
 
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
-    public int MAX_SEE_AHEAD = 10;
+    public float MAX_SEE_AHEAD = 10f;
     public float MAX_AVOIDANCE_FORCE = 10f;
     public float CAST_RADIUS = 1f;
     public float AGENT_RADIUS = 1f;
@@ -92,7 +92,8 @@ public class AgentController : MonoBehaviour
         int layerMask = LayerMask.GetMask("High Obstacle", "Low Obstacle");
         float dynamic_length = rb.velocity.magnitude * MAX_SEE_AHEAD;
         Debug.DrawRay(transform.position, rb.velocity.normalized * dynamic_length, Color.red);
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, CAST_RADIUS, rb.velocity.normalized, dynamic_length, layerMask);
+        //RaycastHit2D hit = Physics2D.CircleCast(transform.position, CAST_RADIUS, rb.velocity.normalized, dynamic_length, layerMask);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, rb.velocity.normalized, dynamic_length, layerMask );
         Vector2 avoidance_force = new Vector2(0, 0);
         if (hit == true)
         {

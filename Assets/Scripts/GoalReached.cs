@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GoalReached : MonoBehaviour
 {
     // Start is called before the first frame update
-    float timer; //timer to calculate simulation time
-    bool reached;
+    [System.NonSerialized] public float timer;//timer to calculate simulation time
+    [System.NonSerialized] public bool reached;
+    [System.NonSerialized] public int collisionCount;
     void Start()
     {
         timer = 0;
@@ -17,15 +19,21 @@ public class GoalReached : MonoBehaviour
         if (other.gameObject.CompareTag("Agent"))
         {
             reached = true;
-            int collisionCount = other.gameObject.GetComponent<AgentController>().collisionCount;
+            collisionCount = other.gameObject.GetComponent<AgentController>().collisionCount;
             Debug.Log($"Goal Reached; simulation time: {timer}; collision count: {collisionCount}");
             other.gameObject.GetComponent<Rigidbody2D>().Sleep();
+            Invoke("Restart", 1f);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!reached) timer += Time.deltaTime;
+        if (!reached) timer += Time.deltaTime;
+    }
+
+    void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
