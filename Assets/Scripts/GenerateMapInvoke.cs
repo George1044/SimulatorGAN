@@ -16,11 +16,11 @@ namespace RESTfulHTTPServer.src.invoker
 
         public static Response Generate(Request request)
         {
-            Debug.Log("GENERATING");
             Response response = new Response();
             string responseData = "";
             string json = request.GetPOSTData();
             bool valid = true;
+            bool timedOut = false;
 
             UnityInvoker.ExecuteOnMainThread.Enqueue(() =>
             {
@@ -41,16 +41,19 @@ namespace RESTfulHTTPServer.src.invoker
                     }
                     instance.StartCoroutine(generator.WaitTillSimulationComplete((isDone) =>
                     {
-                        Debug.Log("COROUTINE IN POST");
                         if (isDone)
                         {
-                            Debug.Log("COROUTINE COMPLETE IN POST");
+                            if (generator.failed)
+                            {
+                                responseData = "Timed Out";
+                                timedOut = true;
+                                return;
+                            }
+
                             GoalReached goalReached = generator.goal.GetComponent<GoalReached>();
-                            SimulationResponse simulationResult = new SimulationResponse(goalReached.timer, goalReached.collisionCount);
-                            print(simulationResult);
+                            SimulationResponse simulationResult = new SimulationResponse(goalReached.pathExists, goalReached.timedOut, goalReached.simulationTimer, goalReached.collisionCount, goalReached.proximityTimer);
                             response.SetHTTPStatusCode((int)HttpStatusCode.OK);
                             responseData = JsonUtility.ToJson(simulationResult);
-                            print(responseData);
                         }
                     }));
 
@@ -74,7 +77,8 @@ namespace RESTfulHTTPServer.src.invoker
 
                 // 200 - OK
                 response.SetContent(responseData);
-                response.SetHTTPStatusCode((int)HttpStatusCode.OK);
+                int statusCode = (timedOut)?(int)HttpStatusCode.RequestTimeout:(int)HttpStatusCode.OK;
+                response.SetHTTPStatusCode(statusCode);
                 response.SetMimeType(Response.MIME_CONTENT_TYPE_JSON);
             }
             else
