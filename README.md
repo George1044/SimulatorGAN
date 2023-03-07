@@ -27,17 +27,19 @@ _Preferably, use **32x32** matrices (for now)_
 
         * 200:
 
-            {
-                "pathExists": true(bool), //this indicates if there is a path from agent to goal
 
-                "timedOut": false(bool), //this indicates that the **simulation** timed out, meaning that the agent is probably stuck
+                {
+                    "pathExists": true(bool), //this indicates if there is a path from agent to goal
 
-                "simulationTime": 19.21 (float), //this indicates how long the simulation was
+                    "timedOut": false(bool), //this indicates that the **simulation** timed out, meaning that the agent is probably stuck
 
-                "collisionCount": 4 (int), //this indicates how many times the agent collided with obstacles
+                    "simulationTime": 19.21 (float), //this indicates how long the simulation was
 
-                "proximityTime": 10.61 (float), //this indicates how much time the agent was close to an obstacle
-            }
+                    "collisionCount": 4 (int), //this indicates how many times the agent collided with obstacles
+
+                    "proximityTime": 10.61 (float), //this indicates how much time the agent was close to an obstacle
+                 }
+            
         
         * 408:
             "Timed Out"
