@@ -19,9 +19,28 @@ To run headless mode:
 _Preferably, use **32x32** matrices (for now)_
 
 * Response will contain the following:
+    * Status: 
+        * 200(OK): indicating success
+        * 408 (REQUEST_TIMEOUT): indicating that the generation timed out
+        * 406 (NOT_ACCEPTABLE): something unexpected 
+    * Content:
 
-        {
-            "simulationTime": 19.21 (float),
+        * 200:
 
-            "collisionCount": 4 (int)
-        }
+            {
+                "pathExists": true(bool), //this indicates if there is a path from agent to goal
+
+                "timedOut": false(bool), //this indicates that the **simulation** timed out, meaning that the agent is probably stuck
+
+                "simulationTime": 19.21 (float), //this indicates how long the simulation was
+
+                "collisionCount": 4 (int), //this indicates how many times the agent collided with obstacles
+
+                "proximityTime": 10.61 (float), //this indicates how much time the agent was close to an obstacle
+            }
+        
+        * 408:
+            "Timed Out"
+        
+        * 406:
+            "Somthing wrong"
